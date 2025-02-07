@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment System - Strategy Pattern</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+      }
+      .container {
+        width: 320px;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        text-align: center;
+      }
+      input,
+      select,
+      button {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        font-size: 16px;
+      }
+      button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #218838;
+      }
+      #result {
+        font-weight: bold;
+        margin-top: 10px;
+        color: #333;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="container">
+      <h2>Payment System</h2>
+      <label>Amount:</label>
+      <input type="number" id="amount" placeholder="Enter amount" />
+
+      <label>Payment Method:</label>
+      <select id="payment-method">
+        <option value="">Select Payment Method</option>
+        <option value="credit-card">Credit Card</option>
+        <option value="paypal">PayPal</option>
+        <option value="google-pay">Google Pay</option>
+        <option value="apple-pay">Apple Pay</option>
+      </select>
+
+      <button onclick="handlePayment()">Pay Now</button>
+
+      <p id="result"></p>
+    </div>
+    
+  </body>
+  <script>
+    
+    
+    // Strategy Interface
+class PaymentStrategy {
+  pay(amount) {
+    throw new Error("pay() method must be implemented.")
+  }
+}
+
+// Concrete Strategies
+class CreditCardPayment extends PaymentStrategy {
+  pay(amount) {
+    return `Paid $${amount} using Credit Card.`
+  }
+}
+
+class PayPalPayment extends PaymentStrategy {
+  pay(amount) {
+    return `Paid $${amount} using PayPal.`
+  }
+}
+
+class GooglePayPayment extends PaymentStrategy {
+  pay(amount) {
+    return `Paid $${amount} using Google Pay.`
+  }
+}
+class ApplePayPayment extends PaymentStrategy{
+    pay(amount) {
+    return `Paid $${amount} using Apple Pay.`
+  }
+}
+
+// PaymentProcessor with Dynamic Registration
+class PaymentProcessor {
+  constructor() {
+    this.paymentStrategies = new Map()
+  }
+
+  registerStrategy(method, strategy) {
+    this.paymentStrategies.set(method, strategy)
+  }
+
+  processPayment(amount, method) {
+    if (!this.paymentStrategies.has(method)) {
+      return "Invalid payment method."
+    }
+    return this.paymentStrategies.get(method).pay(amount)
+  }
+}
+
+// Setup Payment Processor and Register Strategies
+const paymentProcessor = new PaymentProcessor()
+paymentProcessor.registerStrategy("credit-card", new CreditCardPayment())
+paymentProcessor.registerStrategy("paypal", new PayPalPayment())
+paymentProcessor.registerStrategy("google-pay", new GooglePayPayment())
+paymentProcessor.registerStrategy("apple-pay", new ApplePayPayment())
+function handlePayment() {
+  const amount = document.getElementById("amount").value
+  const method = document.getElementById("payment-method").value
+
+  const result = paymentProcessor.processPayment(amount, method)
+  document.getElementById("result").innerText = result
+}
+
+</script>
+</html>

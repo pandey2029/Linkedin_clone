@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add skills</title>
+        <link rel="stylesheet" href="AddSkillStyles.css" />    
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        
+            <div id="modal">
+            <div id="tab">
+                <div id="headerWrapper">
+                    <div id="header">Add skill</div>
+                    <button id="quit">
+                        <i class="material-icons close">close</i>
+                    </button>
+                </div>
+                <div id="req">* indicates required field</div>
+                <div class="addSkill">
+                    <label for="skill">Skill*</label>
+                    <input type="text" id="skill" name="skill" placeholder="Skill (ex:Project Management)"/>
+                </div>
+                <div id="suggestionsTab">
+                    <div class="suggestedWrapper">
+                        <div id="suggested">Suggested based on your profile</div> 
+                        <i class="material-icons closeSuggestions">close</i>
+                    </div>
+                    <div id="suggestions">
+                        <button class="suggestedButton">
+                            React.js
+                        </button>
+                        <button class="suggestedButton">
+                            AngularJs
+                        </button>
+                        <button class="suggestedButton">
+                            Cascading Style Sheets (CSS)
+                        </button>
+                        <button class="suggestedButton">
+                            SQL
+                        </button>
+                        <button class="suggestedButton">
+                            HTML
+                        </button>
+                        <button class="suggestedButton">
+                            Java
+                        </button>
+                        <button class="suggestedButton">
+                            PHP
+                        </button>
+                        <button class="suggestedButton">
+                            jQuery
+                        </button>
+                        <button class="suggestedButton">
+                            Core Java
+                        </button>
+                        <button class="suggestedButton">
+                            c#
+                        </button>
+                    </div>
+                </div>
+                <footer>
+                    <button id="save">Save</button>
+                </footer>
+            </div>
+            </div>
+        
+    </body>
+</html>

@@ -1,0 +1,90 @@
+body,html{
+    margin:0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-y: hidden;
+    background-color: lightgray;
+    
+}
+main{
+    background-color:white;
+    width:50.25rem;
+    margin: auto;
+    border-radius: 0.5rem;;
+}
+.headerLeft,.headerRight{
+    display: flex;
+    align-items: center;
+    gap:1rem;
+}
+#header{
+    display: flex;;
+    justify-content: space-between;
+    padding: 1.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+#skillList{
+    
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;;
+}
+.skill{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 1rem;
+    margin-right: 1rem;;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;;
+    border-bottom: solid rgba(140, 140, 140, 0.2) 1px;;
+    font-weight: 600;
+
+}
+#lastSkill{
+    border:0;
+}
+#all{
+    color:white;
+    background-color:rgb(1, 117, 79);
+}
+#industry,#tools{
+    color:rgba(0, 0, 0, 0.75) ;
+    background-color: white;
+    border:solid rgba(0, 0, 0, 0.5) 1px;
+}
+.educationWrapper{
+    display: flex;;
+    gap:0.5rem;
+    padding-bottom: 1rem;;
+    padding-top: 1rem;
+    
+}
+.instituteImg{
+    width:3rem;
+    height: 3rem;;
+}
+.educationContent{
+    display:flex;
+    flex-direction: column;;
+    gap:0.1rem;
+}
+.instituteName{
+    font-size: 1rem;
+    font-weight: 600;
+
+}
+.branch, .grade{
+    font-size: 0.875rem;
+
+}
+.year{
+    font-size:0.875rem;
+    color:#00000099
+
+}

@@ -1,0 +1,226 @@
+/* main{
+    
+    margin:0 auto;
+    width: 46.5rem;
+   
+    
+    
+    border-radius: 1rem;;
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+   
+    
+} */
+#modal{display: flex; /* Initially hidden */
+    position: fixed; /* Fixed to the screen */
+    z-index: 9999; /* Make sure it's on top of other content */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    display: flex; /* Flexbox to center the modal */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */}
+
+body,html{
+    margin:0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    background-color: lightgray;
+    
+}
+#tab{
+    width: 46.5rem;
+    height:50rem;
+    
+    overflow: auto;
+    border: solid black 1px;
+    border-radius: 1rem;;
+    
+    border-radius: 1rem;;
+    background-color: white;
+    font-family: Arial, Helvetica, sans-serif;
+   
+
+}
+#headerWrapper{
+    display: flex;;
+    justify-content: space-between;
+    width:46.5rem;
+    background-color: white;;
+    box-sizing: border-box;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border-bottom: solid black 1px;
+    align-items: center;
+    height: fit-content;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;;
+    
+}
+#header{
+    padding:0.5rem;
+}
+#quit{
+    border:0;
+    background-color:white;;
+    border-radius: 0.9rem;
+    padding: 0.2rem;
+}
+#req{
+    margin-top: 5rem;
+    
+    padding-bottom: 2rem;;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+    font-size: 1rem;
+}
+.formElement{
+    display: flex;
+    flex-direction: column;
+
+
+}
+label{
+    margin-bottom: 0.3rem;
+}
+#tab::-webkit-scrollbar {
+    display: none;  
+  }
+#educationDetails{
+    display: flex;
+    flex-direction: column;
+    gap:2rem;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
+    font-size: 0.875rem;
+    color:#00000099;
+    margin-bottom:4rem;
+    
+}
+#field,#degree,#school,#grade{
+    padding: 1rem;;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0.5rem;
+
+}
+#field::placeholder,#degree::placeholder,#school::placeholder{
+    font-size: 0.875rem;;
+}
+.selectGroup{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    
+
+}
+.selectGroup2{
+    display: flex;
+    align-self: end;
+    width:100%
+    
+}
+.months,.years{
+width:100%;
+padding: 1rem;;
+padding-top: 0.5rem;
+padding-bottom: 0.5rem;
+border-radius: 0.5rem;
+
+}
+.months{
+    margin-right: 0.4rem;
+
+}
+.years{
+    margin-left: 0.4rem;;
+}
+.start,.end{
+    display: flex;
+    width: 100%;
+}
+
+.formElementSelect{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:2rem;
+}
+#activity,#description{
+    resize: vertical;
+    min-height: 6rem;;
+}
+#skillAdd,#addMedia{
+    display: flex;
+    align-items: center;;
+    justify-content: center;
+    padding:0.4rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    border-radius: 1.2rem;
+    border:0;
+    font-size: 1rem;
+    color: #0a66c2;
+    background-color: white;
+    font-weight: 600;
+    border: solid #0a66c2 1.5px;
+}
+#media{
+    padding-bottom: 2rem;;
+}
+input{
+    border:solid black 1px;
+}
+::placeholder{
+    font-family: Arial, Helvetica, sans-serif;
+}
+h3{
+    font-size: 1.25rem;;
+    color: black;
+}
+#footer{
+   
+    position: fixed;
+    top: 47.2rem;
+    
+    background-color: white;
+    padding: 1rem;
+    height: 4.6rem;
+    box-sizing: border-box;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;;
+    width:46.625rem;
+    
+    align-self: center;;
+    border:solid #00000099 1px;
+
+}
+#save{
+    padding-top:0.4rem;
+    padding-bottom: 0.4rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 1.2rem;;
+    font-size: 1rem;;
+    margin-left: 40rem;;
+    font-size: 1rem;
+    border: 0;
+    color:white;
+    font-weight: 600;
+    background-color: #0a66c2;
+    cursor: pointer;
+    
+}

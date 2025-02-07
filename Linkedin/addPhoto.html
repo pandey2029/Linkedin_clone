@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Photo</title>
+        <link rel="stylesheet" href="addPhotoStyles.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+    </head>
+    <body>
+        <div id="modal">
+        <div id="tab">
+        <div id="photoheader">
+            Profile photo
+            <span class="material-icons">
+                close
+            </span>
+        </div>
+        <img id="imageDisplay" src="">
+        <input type="file" id="imageInput">
+        <div id="photoFooter">
+            <span class="material-icons" id="addPhoto">
+                edit
+            </span>
+            <span class="material-icons">
+                delete
+                </span>
+        </div>
+        </div>
+        </div>
+        <script>
+            document.getElementById("addPhoto").addEventListener("click",function(){
+                const imageInput=document.getElementById("imageInput")
+                
+                imageInput.click();
+                
+
+                imageInput.addEventListener("change",function(event){
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                let imgURL=JSON.parse(localStorage.getItem("personalData")) || "";
+
+                reader.onload=function(event){
+                    
+                    document.getElementById("imageDisplay").src=event.target.result;
+                    console.log(event.target.result)
+                    imgURL=event.target.result;
+                    localStorage.setItem("imgURL", JSON.stringify(imgURL));
+
+                }
+                reader.readAsDataURL(file);
+               
+                
+            })
+
+            })
+            document.addEventListener("DOMContentLoaded", () => {
+                loadImg();
+            });
+            function loadImg(){
+                let imgURL=JSON.parse(localStorage.getItem("imgURL")) || "/images/defaultPhoto.png";
+                document.getElementById("imageDisplay").src=imgURL
+            }
+        
+            
+        </script>
+
+    </body>
+</html>
