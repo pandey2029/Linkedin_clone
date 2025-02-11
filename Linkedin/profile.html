@@ -2,7 +2,9 @@
 <html>
     <head>
         <title>Profile</title>
+        <link rel="stylesheet" href="editAboutStyles.css" />
         <link rel="stylesheet" href="profileStyles.css" />
+        
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="functionality.js" defer></script> 
         <meta charset="UTF-8">
@@ -86,9 +88,9 @@
         <main>
             <div id="introduction">
                 <img id="backgroundImg" src="/images/backgroundimg.jpg">
-                <img id="profileImg" src="https://media.licdn.com/dms/image/v2/D4D03AQEqTUltzgcUqg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1693938208324?e=1743033600&v=beta&t=MUzqAgUcJr-NVQig1ipBiCdEEwgqAwjhC2WedCL0VZQ">
+                <img id="profileImg" src="">
                 <div id="editIntroContainer"><span id="editIntroBtn" class="material-icons">edit</span></div>
-                <div id="intro">
+            <div id="intro">
                 <div id="introLeft">
                     <div id="name">
                         
@@ -110,15 +112,15 @@
                 </div>
                 <div id="introRight">
                     <div class="experience">
-                        <img class="experienceImg" src="https://media.licdn.com/dms/image/v2/C560BAQGB0W6_ixPclA/company-logo_100_100/company-logo_100_100/0/1630590775082/tekion_logo?e=1745452800&v=beta&t=bl_007bnYv7vo3BhlozrxwCxBJ-cGUSgePTHm8BH1LM">
-                        <div class="experienceName">Tekion Corp</div>
+                        <img class="experienceImg" id="experienceCompanyImg" src="">
+                        <div class="experienceName" id="experienceCompanyName"></div>
                     </div>
                     <div class="experience">
-                        <img class="experienceImg" src="https://media.licdn.com/dms/image/v2/D4D0BAQHn7jfCd8lURw/company-logo_100_100/company-logo_100_100/0/1686635689100/lnmiitjpr_logo?e=1745452800&v=beta&t=qBatTg8x4RGCBtAlWidhkXj_4yLIttonxlzXrBv0skg">
-                        <div class="experienceName">The LNM Institute of Information Technology</div>
+                        <img class="experienceImg" id="experienceSchoolImg" src="">
+                        <div class="experienceName" id="experienceSchoolName"></div>
                     </div>
                 </div>
-                </div>
+            </div>
                 <div id="aboutButtons">
                     <button id="openTo">Open to</button>
                     <button id="addProfile">Add Profile Section</button>
@@ -559,7 +561,7 @@
                     <div class="skill">SQL</div>
                 </div>
                 <div id="skillsFooter">
-                    Show all 4 skills
+                    Show all skills
                     <i class="material-icons option">arrow_forward</i>
                 </div>
 
