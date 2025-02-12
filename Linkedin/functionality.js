@@ -5,6 +5,9 @@ function loadSkillData(){
         document.getElementById("skills").style.display="none";
         return;
     }
+    else{
+        document.getElementById("skills").style.display="flex";
+    }
     const container = document.getElementById("skillContainer");
     container.innerHTML = "";
     let count=0;
@@ -37,6 +40,9 @@ function loadAboutData(){
     if(aboutData.length==0){
         document.getElementById("about").style.display="none"
         return;
+    }
+    else{
+        document.getElementById("about").style.display="block"
     }
     document.getElementById("aboutText").textContent=aboutData.aboutContent;
     let topSkillList=aboutData.topSkillList;
@@ -84,6 +90,9 @@ function loadEducationData() {
     if(educationData.length==0){
         document.getElementById("education").style.display="none";
         return;
+    }
+    else{
+        document.getElementById("education").style.display="flex";
     }
     console.log(educationData);
     const container = document.getElementById("educationContentContainer");
@@ -147,41 +156,15 @@ function loadEducationData() {
 }
 function loadExperienceData(){
     let experienceData = JSON.parse(localStorage.getItem("experienceData")) || [];
-    // if(experienceData.length==0){
-    //     document.getElementById("experience").style.display="none";
-    //     return;
-    // }
-
     
-    // if(experienceData.length==0){
-    //     document.getElementById("experience").style.display="none";
-    // }
-    // else{
-    //     document.getElementById("experience").style.display="flex";
-    // }
+    if(experienceData.length==0){
+        document.getElementById("experience").style.display="none";
+        return;
+    }
+    else{
+        document.getElementById("experience").style.display="flex";
+    }
     
-    // let experience=document.getElementById("experience");
-
-    // let experienceHeader=document.createElement("div");
-    // experienceHeader.id="experienceHeader";
-    // experienceHeader.classList.add("sectionHeader");
-
-    // let experienceHeaderLeft=document.createElement("div");
-    // let experienceHeaderRight=document.createElement("div");
-    // experienceHeaderLeft.id="experienceHeaderLeft";
-    // experienceHeaderLeft.className="sectionHeader";
-    // experienceHeaderRight.id="experienceHeaderRight";
-    // experienceHeaderRight.className="sectionHeader";
-    // experienceHeaderLeft.append("Experience");
-    // let add=document.createElement("i");
-    // let edit=document.createElement("i");
-    // add.className="material-icons add";
-    // add.id="addExperience";
-    // edit.className="material-icons edit";
-    // add.append("add");
-    // edit.append("edit");
-    // experienceHeaderRight.append(add,edit);
-    // experienceHeader.append(experienceHeaderLeft,experienceHeaderRight);
 
     let experienceWrapper=document.getElementById("experienceWrapper");
     
@@ -208,6 +191,7 @@ function loadExperienceData(){
             companyAbout.className="companyAbout";
             let duration=document.createElement("div");
             duration.className="durtion";
+            duration.id="durationHeader";
             duration.append(details[details.length-1].empType)
             let companyName=document.createElement('div');
             companyName.className="company";
@@ -237,20 +221,20 @@ function loadExperienceData(){
                 let yearRange = "";
                 detail.topSkillList.forEach((skill)=>{
                     if(roleSkills.textContent===""){
-                        roleSkills.append(skill);
+                        roleSkills.append(`Skills: ${skill}`);
                     }
                     else{
                         roleSkills.append(` • ${skill}`);
                     }
                 })
 
-            if (detail.startMonth && detail.endMonth) {
+            if (detail.startMonth!=="Month" && detail.endMonth!=="Month") {
        
                 yearRange = `${detail.startMonth} ${detail.startYear} - ${detail.endMonth} ${detail.endYear}`;
-            } else if (entry.startMonth) {
+            } else if (detail.startMonth!=="Month") {
        
                 yearRange = `${detail.startMonth} ${detail.startYear} - ${detail.endYear}`;
-            } else if (entry.endMonth) {
+            } else if (detail.endMonth!="Month") {
        
                 yearRange = `${detail.startYear} - ${detail.endMonth} ${detail.endYear}`;
             } else {
@@ -270,6 +254,8 @@ function loadExperienceData(){
 
         }
         else{
+            
+            
             
             let sz=experienceTab.querySelectorAll(".experienceDetail").length;
             //console.log(experienceTab.querySelector(".experienceTabHeader").querySelector(".duration"));
@@ -297,20 +283,20 @@ function loadExperienceData(){
                 let yearRange = "";
                 detail.topSkillList.forEach((skill)=>{
                     if(roleSkills.textContent===""){
-                        roleSkills.append(skill);
+                        roleSkills.append(`Skills: ${skill}`);
                     }
                     else{
                         roleSkills.append(` • ${skill}`);
                     }
                 })
 
-            if (detail.startMonth!="Month" && detail.endMonth!="Month") {
+            if (detail.startMonth!=="Month" && detail.endMonth!=="Month") {
        
                 yearRange = `${detail.startMonth} ${detail.startYear} - ${detail.endMonth} ${detail.endYear}`;
-            } else if (entry.startMonth!="Month") {
+            } else if (detail.startMonth!=="Month") {
        
                 yearRange = `${detail.startMonth} ${detail.startYear} - ${detail.endYear}`;
-            } else if (entry.endMonth!="Month") {
+            } else if (detail.endMonth!=="Month") {
        
                 yearRange = `${detail.startYear} - ${detail.endMonth} ${detail.endYear}`;
             } else {
@@ -323,6 +309,11 @@ function loadExperienceData(){
                 experienceDetail.append(role,duration,location,roleSkills);
                 console.log(experienceTab.querySelector(".experienceDetailWrapper"))
                 experienceTab.querySelector(".experienceDetailWrapper").append(experienceDetail);
+
+
+                if(i==details.length-1){
+                    document.getElementById("durationHeader").textContent=detail.empType;
+                }
 
             }
             
@@ -352,19 +343,9 @@ function about(){
         modal.append(tab);
         
         
-        let headerWrapper=document.createElement("div");
-        headerWrapper.id="headerWrapper";
-        let header=document.createElement("div");
-        header.id="header";
-        header.append("Edit About");
-        let quit=document.createElement("button");
-        quit.id="quit";
-        let close=document.createElement("i");
-        close.className="material-icons";
-        close.append("close");
-        quit.append(close);
-        headerWrapper.append(header,quit);
-        tab.append(headerWrapper);
+       
+
+        tab.append(modalHeader("Edit about"));
 
 
         let editWindow = document.createElement("div");
@@ -584,19 +565,8 @@ function skill(){
     tab.id="tab";
     modal.append(tab);
 
-    let headerWrapper=document.createElement("div");
-        headerWrapper.id="headerWrapper";
-        let header=document.createElement("div");
-        header.id="header";
-        header.append("Add skills");
-        let quit=document.createElement("button");
-        quit.id="quit";
-        let close=document.createElement("i");
-        close.className="material-icons";
-        close.append("close");
-        quit.append(close);
-        headerWrapper.append(header,quit);
-        tab.append(headerWrapper);
+    
+    tab.append(modalHeader("Add skills"));
 
     let formElement=document.createElement("div");
     formElement.id="formElement"
@@ -806,19 +776,8 @@ function education(){
     tab.id="tab";
     modal.append(tab);
 
-    let headerWrapper=document.createElement("div");
-    headerWrapper.id="headerWrapper";
-    let header=document.createElement("div");
-    header.id="header";
-    header.append("Add education");
-    let quit=document.createElement("button");
-    quit.id="quit";
-    let close=document.createElement("i");
-    close.className="material-icons";
-    close.append("close");
-    quit.append(close);
-    headerWrapper.append(header,quit);
-    tab.append(headerWrapper);
+    
+    tab.append(modalHeader("Add education"));
     addModal.innerHTML="";
     addModal.append(modal);
     addEducation.render("tab");
@@ -886,10 +845,10 @@ function experience(){
         .addTextField("Ex:Sales Manager","Title","title",0)
         .addDropdownField("", ["Please select","Full-time","Part-time","Internship"],"Employment type","empType",0)
         .addTextField("Ex:Tekion","Company or Organization","company",0)
-        .addDropdownField("", ["Month","Jan","Feb","Mar","Apr"],"Start date","startMonth",0)
-        .addDropdownField("", ["Year","2020","2021","2022","2022"],"","startYear",1)
-        .addDropdownField("", ["Month","Jan","Feb","Mar","Apr"],"End date","endMonth",0)
-        .addDropdownField("", ["Year","2020","2021","2022","2022"],"","endYear",1)
+        .addDropdownField("", ["Month","Jan","Feb","Mar","Apr","May","June","July","August","Sep","Oct","Nov","Dec"],"Start date","startMonth",0)
+        .addDropdownField("", ["Year","2017","2018","2019","2020","2021","2022","2023","2024","2025"],"","startYear",1)
+        .addDropdownField("", ["Month","Jan","Feb","Mar","Apr","May","June","July","August","Sep","Oct","Nov","Dec"],"End date","endMonth",0)
+        .addDropdownField("", ["Year","2017","2018","2019","2020","2021","2022","2023","2024","2025"],"","endYear",1)
         .addTextField("Ex:London, UK","Location","location",0)
         .addDropdownField("", ["Please select","On-site","Hybrid","Remote"],"Location type","locationType",0)
         .addTextArea("List major duties and success, highlighting specific projects","Description","description",0)
@@ -906,19 +865,8 @@ function experience(){
         modal.append(tab);
         
         
-        let headerWrapper=document.createElement("div");
-        headerWrapper.id="headerWrapper";
-        let header=document.createElement("div");
-        header.id="header";
-        header.append("Add experience");
-        let quit=document.createElement("button");
-        quit.id="quit";
-        let close=document.createElement("i");
-        close.className="material-icons";
-        close.append("close");
-        quit.append(close);
-        headerWrapper.append(header,quit);
-        tab.append(headerWrapper);
+        
+        tab.append(modalHeader("Add experience"));
 
         document.getElementById("addModal").append(modal);
         
@@ -1070,6 +1018,11 @@ function experience(){
             let locationType=document.querySelector("#locationType select").value;
             let description=document.querySelector("#description textarea").value;
             let headline=document.querySelector("#headline input").value;
+
+            if (startYear==="Year" || endYear==="Year") {
+                alert("Please fill in start date and end date.");
+                return;  
+            }
 
             let experienceData=JSON.parse(localStorage.getItem("experienceData")) || [];
             
@@ -1258,330 +1211,130 @@ document.getElementById("skillsFooter").addEventListener("click",()=>{
     }
 })
 document.getElementById("addProfile").addEventListener("click", function () {
-    fetch('addToProfile.html')
-        .then(response => response.text())
-        .then(data => {
-            let addModal = document.getElementById("addModal");
-            addModal.innerHTML = data;
+    
+const modal = document.createElement("div");
+modal.id = "modal";
+const tab = document.createElement("div");
+tab.id = "tabProfile";
+const profileHeaderWrapper = document.createElement("div");
+profileHeaderWrapper.id = "profileHeaderWrapper";
+const header = document.createElement("div");
+header.id = "header";
+header.textContent = "Add to profile";
+const quitButton = document.createElement("button");
+quitButton.id = "quit";
+let close=document.createElement("i");
+close.className="material-icons";
+close.append("close");
+quitButton.appendChild(close);
+profileHeaderWrapper.append(header, quitButton);
+const profileSetup = document.createElement("div");
+profileSetup.id = "profileSetup";
+const profileSetupHeading = document.createElement("h3");
+profileSetupHeading.id = "profileSetupHeading";
+profileSetupHeading.textContent = "Set up your profile in minutes with a resume";
+
+const profileSetupContent = document.createElement("div");
+profileSetupContent.id = "profileSetupContent";
+
+const profileSetupContentText = document.createElement("div");
+profileSetupContentText.id = "profileSetupContentText";
+profileSetupContentText.textContent = "Upload a recent resume to fill out your profile with the help of AI.";
+
+const profileSetupContentButton = document.createElement("button");
+profileSetupContentButton.id = "profileSetupContentButton";
+profileSetupContentButton.textContent = "Get Started";
+
+profileSetupContent.append(profileSetupContentText, profileSetupContentButton);
+profileSetup.append(profileSetupHeading, profileSetupContent);
+
+const manualSetup = document.createElement("div");
+manualSetup.id = "manualSetup";
+manualSetup.textContent = "Manual setup";
+
+const core = document.createElement("div");
+core.id = "core";
+
+const subHeader = document.createElement("div");
+subHeader.className = "subHeader";
+subHeader.textContent = "Core";
+
+
+const description = document.createElement("p");
+description.className = "description";
+description.textContent = "Start with the basics. Filling out these sections will help you be discovered by recruiters and people you may know";
+
+const sections = document.createElement("div");
+sections.className = "sections";
+
+const addAbout = document.createElement("div");
+addAbout.className = "subsection";
+addAbout.id = "addAbout";
+addAbout.textContent = "Add about";
+
+const addEdu = document.createElement("div");
+addEdu.className = "subsection";
+addEdu.id = "addEdu";
+addEdu.textContent = "Add education";
+
+const addExp = document.createElement("div");
+addExp.className = "subsection";
+addExp.id = "addExp";
+addExp.textContent = "Add position";
+
+const addServices = document.createElement("div");
+addServices.className = "subsection";
+addServices.textContent = "Add services";
+
+const addCareerBreak = document.createElement("div");
+addCareerBreak.className = "subsection";
+addCareerBreak.textContent = "Add career break";
+
+const addSkill = document.createElement("div");
+addSkill.className = "subsection";
+addSkill.id = "addSkill";
+addSkill.textContent = "Add skills";
+
+sections.append(addAbout, addEdu, addExp, addServices, addCareerBreak, addSkill);
+core.append(subHeader, description, sections);
+tab.append(profileHeaderWrapper, profileSetup, manualSetup, core);
+modal.appendChild(tab);
+let addModal = document.getElementById("addModal");
+addModal.append(modal);
+            
 
             exit();
            
             document.getElementById("addEdu").addEventListener("click", function () {
-                // const formBuilder = new ConcreteFormBuilder()
-
-                // const addEducation = formBuilder
-                // .addTextField("Ex:Boston University","School","school",0)
-                // .addTextField("Ex:Bachelor's","Degree","degree",0)
-                // .addTextField("Ex:Busisness","Field","field",0)
-                // .addDropdownField("", ["Month","Jan","Feb","Mar","Apr","May","June","July","August","Sep","Oct","Nov","Dec"],"Start date","startMonth",0)
-                // .addDropdownField("", ["Year","2017","2018","2019","2020","2021","2022","2023","2024","2025"],"","startYear",1)
-                // .addDropdownField("", ["Month","Jan","Feb","Mar","Apr","May","June","July","August","Sep","Oct","Nov","Dec"],"End date","endMonth",0)
-                // .addDropdownField("", ["Year","2017","2018","2019","2020","2021","2022","2023","2024","2025"],"","endYear",1)
-                // .addTextField("","Grade","grade",0)
-                // .addTextArea("Ex:Alpha Phi Omega,Volleyball","Activities and societies","activity",0)
-                // .addTextArea("","Description","description",0)
-                // .getForm()
-
-                // addEducation.setRowLayout(new Map([["school",1], ["degree", 2], ["field", 3], ["startMonth", 4], ["startYear", 4], ["endMonth", 5], ["endYear", 5]
-                //     , ["grade", 6], ["activity", 7], ["description", 8]
-                // ]))
-                // let modal=document.createElement("div");
-                // let tab=document.createElement("div");
-                // modal.id="modal";
-                // tab.id="tab";
-                // modal.append(tab);
-
-                // let headerWrapper=document.createElement("div");
-                // headerWrapper.id="headerWrapper";
-                // let header=document.createElement("div");
-                // header.id="header";
-                // header.append("Add education");
-                // let quit=document.createElement("button");
-                // quit.id="quit";
-                // let close=document.createElement("i");
-                // close.className="material-icons";
-                // close.append("close");
-                // quit.append(close);
-                // headerWrapper.append(header,quit);
-                // tab.append(headerWrapper);
-                // addModal.innerHTML="";
-                // addModal.append(modal);
-                // addEducation.render("tab");
-                
-                // document.getElementById("row4").classList.add("modalSelect");
-                // document.getElementById("row5").classList.add("modalSelect");
-
-
-                // exit();
-
-                // document.querySelector("#tab form").onsubmit=(event)=>{
-                //     console.log("here");
-                //     event.preventDefault();
-        
-                //     let school=document.querySelector("#school input").value;
-                //     let degree=document.querySelector("#degree input").value;
-                //     let field=document.querySelector("#field input").value;
-                //     let startMonth=document.querySelector("#startMonth select").value;
-                //     let startYear=document.querySelector("#startYear select").value;
-                //     let endMonth=document.querySelector("#endMonth select").value;
-                //     let endYear=document.querySelector("#endYear select").value;
-                //     let grade=document.querySelector("#grade input").value;
-                //     let activity=document.querySelector("#activity textarea").value;
-                //     let description=document.querySelector("#description textarea").value;
-                    
-                //     if (!school || !degree || !field || startYear==="Year" || endYear==="Year") {
-                //                 alert("Please fill in all required fields.");
-                //                 return;  
-                //             }
-        
-                //     let educationData=JSON.parse(localStorage.getItem("educationData")) || [];
-                    
-                //     educationData.push({
-                //         school,
-                //         degree,
-                //         field,
-                //         startMonth,
-                //         startYear,
-                //         endMonth,
-                //         endYear,
-                //         grade,
-                //         description,
-                //         activity
-
-                //     })
-                    
-                    
-                    
-                    
-                //     localStorage.setItem("educationData",JSON.stringify(educationData));
-                //     document.querySelector("#tab form").reset();
-                    
-                //     loadEducationData();
-                //     addModal.innerHTML="";
-
-                    
-                    
-        
-                // }
-
-                education();
-
-
-                
+                addModal.innerHTML ="";
+                 education(); 
             });
-            exit();
+            document.getElementById("addAbout").addEventListener("click", function () {
+                addModal.innerHTML ="";
+                about(); 
+           });
+           document.getElementById("addSkill").addEventListener("click", function () {
+            addModal.innerHTML ="";
+            skill(); 
+           });
+           document.getElementById("addExp").addEventListener("click", function () {
+            addModal.innerHTML ="";
+            experience(); 
+           });
 
 
-        })
-        .catch(err => console.error("Error loading modal:", err));
+           
+
+
+        
+        
 });
 
 
 
 document.getElementById("addSkillBtn").addEventListener("click",function(){
     skill();
-    // let modal=document.createElement("div");
-    // let tab=document.createElement("div");
-    // modal.id="modal";
-    // tab.id="tab";
-    // modal.append(tab);
-
-    // let headerWrapper=document.createElement("div");
-    //     headerWrapper.id="headerWrapper";
-    //     let header=document.createElement("div");
-    //     header.id="header";
-    //     header.append("Add skills");
-    //     let quit=document.createElement("button");
-    //     quit.id="quit";
-    //     let close=document.createElement("i");
-    //     close.className="material-icons";
-    //     close.append("close");
-    //     quit.append(close);
-    //     headerWrapper.append(header,quit);
-    //     tab.append(headerWrapper);
-
-    // let formElement=document.createElement("div");
-    // formElement.id="formElement"
-    // let labelElement = document.createElement("label")
-    //     let fieldElement = document.createElement("input")
-    //     fieldElement.type ="text"
-    //     fieldElement.placeholder = "Skill(Ex:Project Management)"
-    //     labelElement.append("Skill");
-    //     labelElement.append(fieldElement);
-    //     labelElement.id="skill";
-    // formElement.append(labelElement);
     
-    
-
-    // let footer=document.createElement("div");
-    //     footer.id="footer";
-    //     let save=document.createElement("button");
-    //     save.id="save";
-    //     save.type="submit"
-    //     save.append("save")
-    //     footer.append(save);
-    //     let topSkills=document.createElement("div");
-    //     topSkills.id="topSkills";
-    //     formElement.append(topSkills);
-    //   formElement.append(footer);
-
-      
-
-    //   let skillData=JSON.parse(localStorage.getItem("skillData"))||[];
-    //   let topSkillsArray=[];
-    //   skillData.forEach((skill)=>{
-    //     const skillSet = document.createElement("div");
-    //     skillSet.classList.add("skillSet");
-    //     skillSet.draggable="true";
-    //     const left=document.createElement("div");
-    //     left.classList.add("left");
-    //     const right=document.createElement("div");
-    //     right.classList.add("right");
-    //     const close=document.createElement("i");
-    //     close.classList.add("material-icons");
-    //     close.classList.add("close");
-    //     close.textContent="close"
-    //     const skillName=document.createElement("div");
-    //     skillName.classList.add("skillName");
-    //     const menu=document.createElement("i");
-    //     menu.classList.add("material-icons");
-    //     menu.classList.add("move");
-    //     menu.textContent="menu"
-    //     skillName.textContent=skill;
-    //     left.append(close,skillName);
-    //     right.append(menu);
-    //     skillSet.append(left,right);
-    //     topSkillsArray.push(skillSet);
-    // })
-   
-    // topSkills.append(...topSkillsArray);
-
-    // tab.append(formElement);
-      
-    //   let addModal=document.getElementById("addModal");
-    //   addModal.append(modal);
-
-    //   exit();
-
-    // let inputBox=document.querySelector("#skill input");
-
-    // function saveSkill() {
-    //     const skill = inputBox.value;
-    //     if (skill) {
-            
-    //         skillData.push(skill);
-    //         const skillSet = document.createElement("div");
-    //         skillSet.classList.add("skillSet");
-    //         skillSet.classList.add("dropTarget");
-    //         skillSet.draggable="true";
-    //         const left=document.createElement("div");
-    //         left.classList.add("left");
-    //         const right=document.createElement("div");
-    //         right.classList.add("right");
-    //         const close=document.createElement("i");
-    //         close.classList.add("material-icons");
-    //         close.classList.add("close");
-    //         close.textContent="close"
-    //         const skillName=document.createElement("div");
-    //         skillName.classList.add("skillName");
-    //         const menu=document.createElement("i");
-    //         menu.classList.add("material-icons");
-    //         menu.classList.add("move");
-    //         menu.textContent="menu"
-    //         skillName.textContent=skill;
-    //         left.append(close,skillName);
-    //         right.append(menu);
-    //         skillSet.append(left,right);
-    //         let topSkills=document.getElementById("topSkills");
-    //         topSkills.append(skillSet);
-    //         console.log(topSkills)
-
-    //         inputBox.value = ""; 
-            
-            
-    //     } else {
-    //         console.log("Please enter a skill");
-    //     }
-    // }
-    // inputBox.addEventListener("keydown", function(event) {
-        
-    //     if (event.key === "Enter") {  
-    //         saveSkill();  
-    //     }
-        
-        
-    // });
-    // let dragged = null;
-
-    // document.getElementById("topSkills").addEventListener("dragstart", (event) => {
-    //     if (event.target.classList.contains("skillSet")) {
-    //         dragged = event.target;
-          
-            
-    //     }
-    // });
-    
-    // document.getElementById("topSkills").addEventListener("dragover", (event) => {
-    //     event.preventDefault(); 
-    // });
-    
-    // document.getElementById("topSkills").addEventListener("drop", (event) => {
-    //     event.preventDefault();
-    
-    //     if (dragged && dragged !== event.target && event.target.classList.contains("skillSet")) {
-    //         let parent = document.getElementById("topSkills");
-    
-            
-    //         let targetMiddleY = event.target.offsetTop + event.target.offsetHeight / 2;
-    
-           
-    //         if (event.clientY < targetMiddleY) {
-                
-    //             parent.insertBefore(dragged, event.target);
-    //         } else {
-                
-    //             if (event.target.nextElementSibling) {
-    //                 parent.insertBefore(dragged, event.target.nextElementSibling);
-    //             } else {
-    //                 parent.appendChild(dragged);
-    //             }
-    //         }
-    //     }
-    
-       
-    //     if (dragged) {
-            
-    //         dragged = null; 
-    //     }
-    // });
-    
-
-
-    
-
-
-    // document.getElementById("topSkills").addEventListener("click",function(event){
-    //     console.log("delete");
-    //     if(event.target.className==='material-icons close'){
-    //     let parent=event.target.parentElement.parentElement;
-    //     let skillName=parent.querySelector(".skillName");
-       
-    //     skillData=skillData.filter(skill=>skill!==skillName.textContent);
-    //     console.log(skillName);
-        
-        
-    //     parent.remove();
-    //     }
-        
-        
-    // })
-
-    // document.getElementById("save").addEventListener("click",function(event){
-    //     event.preventDefault();  
-    //     localStorage.setItem("skillData", JSON.stringify(skillData));
-    //     loadSkillData();
-    //     addModal.innerHTML="";
-    // })
 
     
 });
@@ -1750,234 +1503,7 @@ document.getElementById("editIntroBtn").addEventListener("click",function(){
 
 
 document.getElementById("aboutBtn").addEventListener("click",function(){
-            // let modal=document.createElement("div");
-            // let tab=document.createElement("div");
-            // modal.id="modal";
-            // tab.id="tab";
-            // modal.append(tab);
             
-            
-            // let headerWrapper=document.createElement("div");
-            // headerWrapper.id="headerWrapper";
-            // let header=document.createElement("div");
-            // header.id="header";
-            // header.append("Edit About");
-            // let quit=document.createElement("button");
-            // quit.id="quit";
-            // let close=document.createElement("i");
-            // close.className="material-icons";
-            // close.append("close");
-            // quit.append(close);
-            // headerWrapper.append(header,quit);
-            // tab.append(headerWrapper);
-
-
-            // let editWindow = document.createElement("div");
-            // editWindow.id = "editWindow";
-
-            // let description = document.createElement("p");
-            // description.id = "description";
-            // description.textContent = "You can write about your years of experience, industry, or skills. People also talk about their achievements or previous job experiences.";
-
-            // let textarea = document.createElement("textarea");
-            // textarea.id = "content";
-            // textarea.placeholder = "Add about yourself here.";
-
-            // let wordCount = document.createElement("div");
-            // wordCount.id = "wordCount";
-            // wordCount.textContent = "0/2000";
-
-            // editWindow.append(description, textarea, wordCount);
-
-
-
-            // let skills=document.createElement("div");
-            // skills.id="skills";
-            // let h3=document.createElement("h3");
-            // let p=document.createElement("p");
-            // h3.append("Skills");
-            // p.append("Show your top skills — add up to 5 skills you want to be known for. They will also appear in your Skills section.")
-            // let topSkills=document.createElement("div");
-            // topSkills.id="topSkills";
-            // let addTopSkill=document.createElement("button");
-            // addTopSkill.id="addTopSkill";
-            // let add=document.createElement("i");
-            // add.className="material-icons add";
-            // add.append("add");
-            // addTopSkill.append(add,"Add skill");
-            // let topSkillInputContainer=document.createElement("div");
-            // topSkillInputContainer.id="topSkillInputContainer";
-            // skills.append(h3,p,topSkills,addTopSkill,topSkillInputContainer);
-            // tab.append(editWindow,skills)
-            // let footer = document.createElement("div");
-            // footer.id = "footer";
-            // let saveButton = document.createElement("button");
-            // saveButton.id = "save";
-            // saveButton.textContent = "Save";
-            // footer.appendChild(saveButton);
-            // tab.append(footer);
-
-
-
-
-            // document.getElementById("addModal").append(modal);
-            // document.getElementById("skills").style.padding="1.5rem";
-
-            // exit();
-
-            // let aboutData = JSON.parse(localStorage.getItem("aboutData")) || {};
-            // let topSkillList=aboutData.topSkillList || [];
-
-            // topSkillList.forEach((skill)=>{
-            //     const skillSet = document.createElement("div");
-            //             skillSet.classList.add("skillSet");
-            //             const left=document.createElement("div");
-            //             left.classList.add("left");
-            //             const right=document.createElement("div");
-            //             right.classList.add("right");
-            //             const close=document.createElement("i");
-            //             close.classList.add("material-icons");
-            //             close.classList.add("close");
-            //             close.textContent="close"
-            //             const skillName=document.createElement("div");
-            //             skillName.classList.add("skillName");
-            //             const menu=document.createElement("i");
-            //             menu.classList.add("material-icons");
-            //             menu.classList.add("move");
-            //             menu.textContent="menu"
-            //             skillName.textContent=skill;
-            //             left.append(close,skillName);
-            //             right.append(menu);
-            //             skillSet.append(left,right);
-            //             let topSkills=document.getElementById("topSkills");
-            //             topSkills.append(skillSet);
-            // })
-            // document.getElementById("content").append(aboutData.aboutContent);
-
-            // document.getElementById("addTopSkill").addEventListener("click", function() {
-            //     this.style.display="none";
-            //     const inputBox = document.createElement("input");
-            //     inputBox.type = "text";
-            //     inputBox.placeholder = "Skill";
-            //     inputBox.id = "newSkill";
-            
-            //     function saveSkill() {
-            //         const skill = inputBox.value;
-            //         if (skill) {
-                        
-            //             topSkillList.push(skill);
-            //             const skillSet = document.createElement("div");
-            //             skillSet.classList.add("skillSet");
-            //             const left=document.createElement("div");
-            //             left.classList.add("left");
-            //             const right=document.createElement("div");
-            //             right.classList.add("right");
-            //             const close=document.createElement("i");
-            //             close.classList.add("material-icons");
-            //             close.classList.add("close");
-            //             close.textContent="close"
-            //             const skillName=document.createElement("div");
-            //             skillName.classList.add("skillName");
-            //             const menu=document.createElement("i");
-            //             menu.classList.add("material-icons");
-            //             menu.classList.add("move");
-            //             menu.textContent="menu"
-            //             skillName.textContent=skill;
-            //             left.append(close,skillName);
-            //             right.append(menu);
-            //             skillSet.append(left,right);
-            //             let topSkills=document.getElementById("topSkills");
-            //             topSkills.append(skillSet);
-            //             console.log(topSkills)
-
-            //             inputBox.value = ""; 
-            //             inputBox.style.display="none";
-            //             document.getElementById("addTopSkill").style.display="flex";
-            //         } else {
-            //             console.log("Please enter a skill");
-            //         }
-            //     }
-                
-                
-                
-                
-                    
-            //     inputBox.addEventListener("keydown", function(event) {
-            //         if (event.key === "Enter") {  
-            //             saveSkill();  
-            //         }
-                    
-                    
-            //     });
-                
-                
-            //     const skillInputContainer = document.getElementById("topSkillInputContainer");
-            //     skillInputContainer.innerHTML = "";  
-            //     skillInputContainer.appendChild(inputBox);
-                
-            // });
-
-            // document.getElementById("topSkills").addEventListener("click",function(event){
-            //     console.log("delete");
-            //     if(event.target.className==='material-icons close'){
-            //     let parent=event.target.parentElement.parentElement;
-            //     let skillName=parent.querySelector(".skillName");
-            
-            //     topSkillList=topSkillList.filter(skill=>skill!==skillName.textContent);
-            //     console.log(skillName);
-                
-                
-            //     parent.remove();
-            //     }
-                
-                
-            // })
-
-
-
-
-
-            // document.getElementById("save").addEventListener("click",function(event){
-            //     event.preventDefault();  
-
-                
-            //     let aboutContent = document.getElementById("content").value;
-                
-                
-            //     console.log("Headline:", headline); 
-
-
-                
-                
-
-
-                
-            
-                
-
-            //     aboutData={
-            //         aboutContent,
-            //         topSkillList
-            //     }
-
-
-                
-
-            //     localStorage.setItem("aboutData", JSON.stringify(aboutData));
-
-                            
-                
-            //     loadAboutData();
-
-
-                
-                
-                            
-                
-
-            //     addModal.innerHTML="";
-            // })
-
 
         about();
 
@@ -2042,254 +1568,14 @@ sideBarBtns.forEach(button => {
 
 
 document.getElementById("addExperience").onclick=()=>{
-    // const formBuilder = new ConcreteFormBuilder()
-
-    // const addExperience = formBuilder
-    //     .addTextField("Ex:Sales Manager","Title","title",0)
-    //     .addDropdownField("", ["Please select","Full-time","Part-time","Internship"],"Employment type","empType",0)
-    //     .addTextField("Ex:Tekion","Company or Organization","company",0)
-    //     .addDropdownField("", ["Month","Jan","Feb","Mar","Apr"],"Start date","startMonth",0)
-    //     .addDropdownField("", ["Year","2020","2021","2022","2022"],"","startYear",1)
-    //     .addDropdownField("", ["Month","Jan","Feb","Mar","Apr"],"End date","endMonth",0)
-    //     .addDropdownField("", ["Year","2020","2021","2022","2022"],"","endYear",1)
-    //     .addTextField("Ex:London, UK","Location","location",0)
-    //     .addDropdownField("", ["Please select","On-site","Hybrid","Remote"],"Location type","locationType",0)
-    //     .addTextArea("List major duties and success, highlighting specific projects","Description","description",0)
-    //     .addTextField("Headline","Profile Headline","headline",0)
-    //     .getForm()
-
-    //     addExperience.setRowLayout(new Map([["title",1], ["empType", 2], ["company", 3], ["startMonth", 4], ["startYear", 4], ["endMonth", 5], ["endYear", 5]
-    //         , ["location", 6], ["locationType", 7], ["description", 8],["headline",9]
-    //     ]))
-    //     let modal=document.createElement("div");
-    //     let tab=document.createElement("div");
-    //     modal.id="modal";
-    //     tab.id="tab";
-    //     modal.append(tab);
-        
-        
-    //     let headerWrapper=document.createElement("div");
-    //     headerWrapper.id="headerWrapper";
-    //     let header=document.createElement("div");
-    //     header.id="header";
-    //     header.append("Add experience");
-    //     let quit=document.createElement("button");
-    //     quit.id="quit";
-    //     let close=document.createElement("i");
-    //     close.className="material-icons";
-    //     close.append("close");
-    //     quit.append(close);
-    //     headerWrapper.append(header,quit);
-    //     tab.append(headerWrapper);
-
-    //     document.getElementById("addModal").append(modal);
-        
-        
-
-    //     // <div id="footer">
-    //     //             <button id="save" type="submit">Save</button>
-    //     // </div>
-
-        
-        
-        
-        
-
-
-
-    //     exit();
-    //     let topSkills=document.createElement("div");
-    //     topSkills.id="topSkills";
-    //     let addTopSkill=document.createElement("button");
-    //     addTopSkill.id="addTopSkill";
-    //     let add=document.createElement("i");
-    //     add.classList.add("material-icons");
-    //     add.classList.add("add");
-    //     add.append("add");
-    //     addTopSkill.append(add,"Add skill");
-    //     let topSkillInputContainer=document.createElement("div");
-    //     topSkillInputContainer.id="topSkillInputContainer";
-
-        
-    //     let topSkillList=[];
-        
-       
-    //     addExperience.render("tab");
-    //     document.getElementById("row4").classList.add("modalSelect");
-    //     document.getElementById("row5").classList.add("modalSelect");
-    //     topSkills.style.order=100;
-    //     addTopSkill.style.order=100;
-    //     topSkillInputContainer.style.order=100;
-    //     addTopSkill.type="button";
-    //     document.querySelector("#tab form").append(topSkills,addTopSkill,topSkillInputContainer);
-        
-        
-    //     console.log(document.getElementById("saveExp"));
-    //     // document.getElementById("").addEventListener("submit",function(event){
-    //     //     event.preventDefault();
-    //     //     console.log("finally");
-    //     // })
-    //     document.querySelector("#tab form").addEventListener("keydown", (event) => {
-    //         if (event.key === "Enter") {
-    //             event.preventDefault();
-    //         }
-    //     });
-        
-    //     document.getElementById("addTopSkill").addEventListener("click", function() {
-    //         this.style.display="none";
-    //         const inputBox = document.createElement("input");
-    //         inputBox.type = "text";
-    //         inputBox.placeholder = "Skill";
-    //         inputBox.id = "newSkill";
-           
-    //         function saveSkill() {
-    //             const skill = inputBox.value;
-    //             if (skill) {
-                    
-    //                 topSkillList.push(skill);
-    //                 const skillSet = document.createElement("div");
-    //                 skillSet.classList.add("skillSet");
-    //                 const left=document.createElement("div");
-    //                 left.classList.add("left");
-    //                 const right=document.createElement("div");
-    //                 right.classList.add("right");
-    //                 const close=document.createElement("i");
-    //                 close.classList.add("material-icons");
-    //                 close.classList.add("close");
-    //                 close.textContent="close"
-    //                 const skillName=document.createElement("div");
-    //                 skillName.classList.add("skillName");
-    //                 const menu=document.createElement("i");
-    //                 menu.classList.add("material-icons");
-    //                 menu.classList.add("move");
-    //                 menu.textContent="menu"
-    //                 skillName.textContent=skill;
-    //                 left.append(close,skillName);
-    //                 right.append(menu);
-    //                 skillSet.append(left,right);
-    //                 let topSkills=document.getElementById("topSkills");
-    //                 topSkills.append(skillSet);
-    //                 console.log(topSkills)
-
-    //                 inputBox.value = ""; 
-    //                 inputBox.style.display="none";
-    //                 document.getElementById("addTopSkill").style.display="flex";
-    //             } else {
-    //                 console.log("Please enter a skill");
-    //             }
-    //         }
-            
-            
-            
-            
-                
-    //         inputBox.addEventListener("keydown", function(event) {
-    //             if (event.key === "Enter") {  
-    //                 saveSkill();  
-    //             }
-    //             console.log(topSkillList);
-                
-    //         });
-            
-               
-    //         const skillInputContainer = document.getElementById("topSkillInputContainer");
-    //         skillInputContainer.innerHTML = "";  
-    //         skillInputContainer.appendChild(inputBox);
-            
-    //     });
-
-    //     document.getElementById("topSkills").addEventListener("click",function(event){
-    //         console.log("delete");
-    //         if(event.target.className==='material-icons close'){
-    //         let parent=event.target.parentElement.parentElement;
-    //         let skillName=parent.querySelector(".skillName");
-           
-    //         topSkillList=topSkillList.filter(skill=>skill!==skillName.textContent);
-    //         console.log(skillName);
-            
-            
-    //         parent.remove();
-    //         }
-            
-            
-    //     })
-
-
-
-    //     document.querySelector("#tab form").onsubmit=(event)=>{
-    //         console.log("here");
-    //         event.preventDefault();
-
-    //         let title=document.querySelector("#title input").value;
-            
-    //         let empType=document.querySelector("#empType select").value;
-    //         let company=document.querySelector("#company input").value;
-    //         let startMonth=document.querySelector("#startMonth select").value;
-    //         let startYear=document.querySelector("#startYear select").value;
-    //         let endMonth=document.querySelector("#endMonth select").value;
-    //         let endYear=document.querySelector("#endYear select").value;
-    //         let location=document.querySelector("#location input").value;
-    //         let locationType=document.querySelector("#locationType select").value;
-    //         let description=document.querySelector("#description textarea").value;
-    //         let headline=document.querySelector("#headline input").value;
-
-    //         let experienceData=JSON.parse(localStorage.getItem("experienceData")) || [];
-            
-    //         let alreadypresent=false;
-    //         for(let i=0;i<experienceData.length;i++){
-    //             if(experienceData[i].company===company){
-    //                 experienceData[i].details.push({
-    //                 title,
-    //                 empType,
-    //                 startMonth,
-    //                 startYear,
-    //                 endMonth,
-    //                 endYear,
-    //                 location,
-    //                 locationType,
-    //                 description,
-    //                 headline,
-    //                 topSkillList
-    //                 })
-    //                 alreadypresent=true;
-    //                 break;
-    //             }
-    //         }
-            
-            
-    //         if(!alreadypresent){
-    //             let details=[{
-    //                 title,
-    //                 empType,
-    //                 startMonth,
-    //                 startYear,
-    //                 endMonth,
-    //                 endYear,
-    //                 location,
-    //                 locationType,
-    //                 description,
-    //                 headline,
-    //                 topSkillList
-    //             }];
-    //             experienceData.push({company,details});
-                
-    //         }
-    //         alreadypresent=false;
-            
-    //         localStorage.setItem("experienceData",JSON.stringify(experienceData));
-    //         document.querySelector("#tab form").reset();
-            
-    //         loadExperienceData();
-    //         addModal.innerHTML="";
-            
-
-    //     }
+    
 
 
 
     experience();
 
 }
+document.getElementById("addEduBtn").onclick=education;
 
 
 
@@ -2507,6 +1793,21 @@ class FormBuilder {
     }
   }
   
-  
+  function modalHeader(heading){
+    let headerWrapper=document.createElement("div");
+        headerWrapper.id="headerWrapper";
+        let header=document.createElement("div");
+        header.id="header";
+        header.append(heading);
+        let quit=document.createElement("button");
+        quit.id="quit";
+        let close=document.createElement("i");
+        close.className="material-icons";
+        close.append("close");
+        quit.append(close);
+        headerWrapper.append(header,quit);
+
+        return headerWrapper;
+  }
  
   
